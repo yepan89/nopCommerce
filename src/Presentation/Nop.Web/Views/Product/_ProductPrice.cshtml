@@ -5,10 +5,17 @@
 
 @inject IWorkContext workContext
 
+@{
+    // 核心拦截逻辑：判断价格字符串是否包含 0.00 或 $0.00
+    // 使用 RawHtmlStrip 或简单的包含判断，如果是 0，则强行视为 CallForPrice
+    var isZeroPrice = !string.IsNullOrEmpty(Model.Price) && 
+                      (Model.Price.Contains("0.00") || Model.Price.Trim() == "0");
+}
+
 @if (!Model.CustomerEntersPrice)
 {
     <div class="prices">
-        @if (Model.CallForPrice)
+        @if (Model.CallForPrice || isZeroPrice)
         {
             @*call for price*@
             <div class="product-price call-for-price">

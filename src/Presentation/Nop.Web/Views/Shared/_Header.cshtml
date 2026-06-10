@@ -1,6 +1,7 @@
 ﻿<div class="header">
     <a class="skip" href="#main">@T("Header.SkipNavigation.Text")</a>
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderBefore })
+    
     <div class="header-upper">
         <div class="header-selectors-wrapper">
             @await Component.InvokeAsync(typeof(TaxTypeSelectorViewComponent))
@@ -8,19 +9,52 @@
             @await Component.InvokeAsync(typeof(LanguageSelectorViewComponent))
             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderSelectors })
         </div>
-        <div class="header-links-wrapper">
-            @await Component.InvokeAsync(typeof(HeaderLinksViewComponent))
-            @await Component.InvokeAsync(typeof(FlyoutShoppingCartViewComponent))
-        </div>
     </div>
+    
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMiddle })
-    <div class="header-lower">
+
+    <div class="header-lower pc-only-header pc-header-block">
         <div class="header-logo">
             @await Component.InvokeAsync(typeof(LogoViewComponent))
         </div>
-        <div class="search-box store-search-box">
+        <div class="header-phone">
+            <a href="tel:+12139059189" class="phone-number">+1 (213) 905-9189</a>
+        </div>
+        <div class="header-right">
+            <div class="header-links-wrapper">
+                @await Component.InvokeAsync(typeof(HeaderLinksViewComponent))
+                @await Component.InvokeAsync(typeof(FlyoutShoppingCartViewComponent))
+            </div>
+            <div class="search-box store-search-box">
+                @await Component.InvokeAsync(typeof(SearchBoxViewComponent))
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-only-header">
+        <div class="m-header-top-row">
+            <div class="mobile-menu-trigger" onclick="document.querySelector('.header-menu').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="m-header-logo">
+                @await Component.InvokeAsync(typeof(LogoViewComponent))
+            </div>
+
+            <div class="mobile-action-icons">
+                <a href="#" class="m-icon m-icon-search" onclick="document.querySelector('.mobile-search-row').classList.toggle('active'); return false;"></a>
+                <a href="/customer/info" class="m-icon m-icon-account"></a>
+                <a href="tel:+12139059189" class="m-icon m-icon-phone"></a>
+                <div class="m-cart-wrap">
+                    @await Component.InvokeAsync(typeof(FlyoutShoppingCartViewComponent))
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-search-row">
             @await Component.InvokeAsync(typeof(SearchBoxViewComponent))
         </div>
     </div>
+
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderAfter })
 </div>

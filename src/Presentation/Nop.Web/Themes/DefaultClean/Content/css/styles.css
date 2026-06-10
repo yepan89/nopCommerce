@@ -889,6 +889,7 @@ label, label + * {
   width: 95%;
   margin: auto;
   text-align: center;
+  background-color: #111;
 }
 
 .header-upper {
@@ -900,6 +901,7 @@ label, label + * {
 .header-selectors-wrapper {
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
+  background-color: #19104b;
 }
 
 .header-selectors-wrapper > div {
@@ -976,7 +978,7 @@ label, label + * {
   width: 70%;
   max-width: 400px;
   margin: 10px auto 0;
-  background-color: #f6f6f6;
+  background-color: #19104b;
   padding: 0 20px;
 }
 
@@ -988,11 +990,12 @@ label, label + * {
 .header-lower {
   position: relative;
   z-index: 0;
-  padding: 35px 0;
+  padding: 0;
+  background-color: #19104b;
 }
 
 .header-logo {
-  margin: 0 0 20px;
+  margin: 0 0 0;
   text-align: center;
 }
 
@@ -1003,8 +1006,11 @@ label, label + * {
 }
 
 .header-logo a img {
-  max-width: 100%;
+  max-width: none;
   opacity: 1;
+  width: auto;         /* 强制给 Logo 图片设定一个固定宽度（根据你的图片大小调整，比如 180px 或 200px） */
+  height: 100px;         /* 高度自动等比例缩放，防止图片变形 */
+  flex-shrink: 0;
 }
 
 .search-box form {
@@ -1019,7 +1025,7 @@ label, label + * {
 
 .search-box input.search-box-text {
   float: left;
-  width: 200px;
+  width: 150px;
   height: 36px;
   margin: 0 -1px 0 0;
 }
@@ -1878,6 +1884,10 @@ label, label + * {
 .manufacturer-grid,
 .vendor-grid {
   margin: 0 0 20px;
+}
+
+.home-page-category-grid{
+  margin: 20px 0 20px;
 }
 
 .home-page-category-grid .title,
@@ -7869,6 +7879,7 @@ label, label + * {
     width: auto;
     margin: 0;
     padding: 0 18px;
+    background-color: #19104b;
   }
 
   .flyout-cart {
@@ -8027,8 +8038,9 @@ label, label + * {
     margin: 0 auto 30px;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    padding: 25px 0;
+    padding: 0;
     text-align: center;
+    background-color:#f5f5f5;
   }
 
   .menu-toggle,
@@ -8883,3 +8895,328 @@ a.skip:hover {
   width: 100%;
   font-size: 16px;
 }
+
+
+
+
+
+/* 1. 整体大容器：换成 Uline 的深蓝色，禁止换行 */
+.header-lower {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;      /* 改为底部对齐，让搜索框沉在右下角 */
+  padding: 0;
+  flex-wrap: nowrap;          /* 强制不换行 */
+}
+
+  .header-phone {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    padding: 0 20px;
+  }
+
+
+
+/* 2. 电话：白字、加粗、放大，死死贴在 Logo 右边 */
+.header-phone {
+  margin-left: 15px;          /* 让电话距离 Logo 保持 25 像素 */
+  margin-right: auto;         /* 核心魔法：把右边的容器推到最右侧 */
+  align-self: center;
+}
+.header-phone .phone-number {
+  color: #ffffff;  /* 电脑端是干净的白字 */
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;        /* 电话绝不折行 */
+}
+
+/* 3. 右侧容器：保持你原来的上下排列和靠右 */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  gap: 10px;                  /* 上下两层的间距 */
+  flex-shrink: 0;
+}
+
+
+/* 4. 把右边所有的文字链接也变成 Uline 的白字 */
+.header-right a, 
+.header-right span {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* =================================================== */
+/* 5. 手机/电脑的核心切换逻辑：只在手机上允许点击 */
+/* =================================================== */
+@media all and (min-width: 769px) {
+    .header-phone .phone-number {
+        pointer-events: none;   /* 电脑端：彻底锁死点击事件，变成纯文本 */
+        cursor: default;
+    }
+}
+@media all and (max-width: 768px) {
+    .header-phone .phone-number {
+        pointer-events: auto;   /* 手机端：恢复点击，可以一键拨号 */
+        display:none;
+    }
+    .header-logo a img {
+      max-width: none;
+      opacity: 1;
+      width: auto;         /* 强制给 Logo 图片设定一个固定宽度（根据你的图片大小调整，比如 180px 或 200px） */
+      height: 50px;         /* 高度自动等比例缩放，防止图片变形 */
+      flex-shrink: 0;
+    }
+    .header-right {
+     gap: 0;                  /* 上下两层的间距 */
+    }
+    .header-links-wrapper {
+      padding: 0 0;
+    }
+    .topcartlink {
+      margin: 0 auto 0;
+    }
+    .header-links span,
+    .header-links a {
+    line-height: 20px;
+    }
+
+    .search-box input.search-box-text {
+        width: 110px;
+    }
+
+    /* 1. 先释放之前粗暴的 display: none */
+    .header-selectors-wrapper {
+        display: block !important; 
+        margin: 0 !important;
+        padding: 0 !important; /* 没内容时，padding 必须归零，防止撑开空白 */
+        border: none !important;
+    }
+
+    /* 2. 核心魔法：如果后台没开启多语言/多货币，容器内部完全为空（:empty）时，彻底隐藏 */
+    .header-selectors-wrapper:empty {
+        display: none !important;
+    }
+
+   
+
+    .header-menu {
+      max-width: none;
+    }
+
+
+}
+
+
+/* =================================================== */
+/* 1. 电脑端状态 (屏幕大于 768px)：蒸发手机端 */
+/* =================================================== */
+@media all and (min-width: 769px) {
+    .mobile-only-header,
+    .mobile-only-header *,
+    .m-header-logo,
+    .mobile-menu-trigger,
+    .mobile-action-icons,
+    .mobile-search-row {
+        display: none !important;
+    }
+    
+    .pc-header-block {
+        display: flex !important; 
+    }
+}
+
+/* =================================================== */
+/* 2. 手机端状态 (屏幕小于 768px)：极限狙击电脑端，彻底防穿透 */
+/* =================================================== */
+@media all and (max-width: 768px) {
+    
+    /* 🚨 核心修复：多重定位，强行把整个电脑端的块、容器、以及里面的子孙元素全部杀死 */
+    .pc-header-block,
+    .pc-only-header,
+    .pc-only-header *,
+    .header-lower:not(.mobile-only-header .header-lower), 
+    .header-selectors-wrapper {
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* 手机端全新大外壳：横向满铺，深蓝底 */
+    .mobile-only-header {
+        display: block !important;
+        width: 100% !important;
+        background-color: #003366 !important; /* Uline 深蓝 */
+        padding: 8px 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 手机端第一行 */
+    .m-header-top-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+
+    /* 三道杠 */
+    .mobile-menu-trigger {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 20px;
+        height: 14px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .mobile-menu-trigger span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff;
+    }
+
+    /* Logo 手机端 */
+    .m-header-logo {
+        margin: 0 0 0 10px !important;
+        flex-shrink: 0;
+    }
+    .m-header-logo a img {
+        max-width: none !important;
+        width: auto !important;         
+        height: 28px !important; 
+    }
+
+    /* 右侧纯图标区域 */
+    .mobile-action-icons {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        gap: 16px !important; 
+        flex-shrink: 0 !important;
+    }
+
+    .mobile-action-icons .m-icon {
+        display: block !important;
+        width: 22px !important;
+        height: 22px !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+    }
+
+    .mobile-action-icons .m-icon-search {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>') !important;
+    }
+    .mobile-action-icons .m-icon-account {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>') !important;
+    }
+    .mobile-action-icons .m-icon-phone {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>') !important;
+    }
+
+    /* 手机购物车 */
+    .m-cart-wrap {
+        position: relative !important;
+    }
+    .m-cart-wrap .header-links,
+    .m-cart-wrap .flyout-cart-content,
+    .m-cart-wrap .mini-shopping-cart,
+    .m-cart-wrap .cart-label {
+        display: none !important;
+    }
+    .m-cart-wrap a.ico-cart {
+        display: block !important;
+        width: 24px !important;
+        height: 24px !important;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 110 4 2 2 0 010-4z"/></svg>') no-repeat center !important;
+        background-size: contain !important;
+        font-size: 0 !important;
+        color: transparent !important;
+        text-indent: -9999px !important;
+    }
+    .m-cart-wrap a.ico-cart .cart-qty {
+        position: absolute !important;
+        top: -6px !important;
+        right: -8px !important;
+        background-color: #ff0000 !important;
+        color: #ffffff !important;
+        font-size: 10px !important;
+        font-weight: bold !important;
+        padding: 1px 4px !important;
+        border-radius: 10px !important;
+        text-indent: 0 !important;
+        line-height: 1.2 !important;
+    }
+
+    /* 手机端搜索框 */
+    .mobile-search-row {
+        display: flex !important; 
+        width: 100% !important;
+        margin-top: 8px !important;
+    }
+    .mobile-search-row form {
+        display: flex !important;
+        width: 100% !important;
+    }
+    .mobile-search-row input.search-box-text {
+        width: 100% !important;
+        height: 36px !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px 0 0 4px !important;
+        padding: 0 10px !important;
+        font-size: 14px !important;
+        color: #333 !important;
+        background-color: #ffffff !important;
+    }
+    .mobile-search-row button.search-box-button {
+        height: 36px !important;
+        padding: 0 14px !important;
+        background-color: #002244 !important; 
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 0 4px 4px 0 !important;
+    }
+}
+
+
+/* ===== 等分菜单（保持980px布局） ===== */
+/*
+.header-menu > ul {
+    display: flex !important;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header-menu > ul > li {
+    flex: 1;
+    text-align: center;
+}
+
+.header-menu > ul > li > a {
+    display: block;
+    padding: 12px 0;
+    width: 100%;
+}
+
+.header-menu > ul > li:hover {
+    background: #f5f5f5;
+}
+
+
+
+.header-links li {
+    background-color: #111 !important;
+}
+
+*/
+
