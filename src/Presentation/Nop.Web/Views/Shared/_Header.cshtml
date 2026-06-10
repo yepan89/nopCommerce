@@ -31,9 +31,9 @@
         </div>
     </div>
 
-    <div class="mobile-only-header">
+   <div class="mobile-only-header">
         <div class="m-header-top-row">
-            <div class="mobile-menu-trigger" onclick="document.querySelector('.header-menu').classList.toggle('active')">
+            <div class="mobile-menu-trigger" onclick="document.querySelector('.mobile-menu-overlay').classList.add('active')">
                 <span></span><span></span><span></span>
             </div>
 
@@ -51,10 +51,16 @@
             </div>
         </div>
 
+        <div class="mobile-menu-overlay" onclick="this.classList.remove('active')">
+            <div class="mobile-menu-inner" onclick="event.stopPropagation()">
+                <div class="close-btn" onclick="document.querySelector('.mobile-menu-overlay').classList.remove('active')">✕</div>
+                @await Component.InvokeAsync(typeof(TopMenuViewComponent))
+            </div>
+        </div>
+
         <div class="mobile-search-row">
             @await Component.InvokeAsync(typeof(SearchBoxViewComponent))
         </div>
     </div>
-
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderAfter })
 </div>
