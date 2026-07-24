@@ -18,7 +18,7 @@
             @await Component.InvokeAsync(typeof(LogoViewComponent))
         </div>
         <div class="header-phone">
-            <a href="tel:+12139059189" class="phone-number">+1 (213) 905-9189</a>
+            <a href="tel:+12139059189" class="phone-number">1-213-905-9189</a>
         </div>
         <div class="header-right">
             <div class="header-links-wrapper">
@@ -46,7 +46,9 @@
                 <a href="/customer/info" class="m-icon m-icon-account"></a>
                 <a href="tel:+12139059189" class="m-icon m-icon-phone"></a>
                 <div class="m-cart-wrap">
-                    @await Component.InvokeAsync(typeof(FlyoutShoppingCartViewComponent))
+                    <a href="/cart" class="ico-cart" title="Shopping Cart">
+                        <span class="sr-only">Cart</span>
+                    </a>
                 </div>
             </div>
         </div>

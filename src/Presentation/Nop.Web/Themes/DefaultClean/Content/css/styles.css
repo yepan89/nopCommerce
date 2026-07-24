@@ -1897,6 +1897,7 @@ label, label + * {
   font-weight: normal;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  height: 50px;
 }
 
 .home-page-category-grid .title a,
@@ -2454,7 +2455,7 @@ label, label + * {
 
 .overview .qty-input,
 .variant-overview .qty-input {
-  width: 45px;
+  width: 55px;
   height: 43px;
   padding: 0 12px;
   text-align: center;
@@ -9154,36 +9155,32 @@ a.skip:hover {
 
     /* 手机购物车 */
     .m-cart-wrap {
-        position: relative !important;
+    position: relative !important;
+    display: block !important;
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     }
-    .m-cart-wrap .header-links,
-    .m-cart-wrap .flyout-cart-content,
-    .m-cart-wrap .mini-shopping-cart,
-    .m-cart-wrap .cart-label {
-        display: none !important;
-    }
+
     .m-cart-wrap a.ico-cart {
         display: block !important;
-        width: 24px !important;
-        height: 24px !important;
+        width: 100% !important;
+        height: 100% !important;
+        /* 图标背景 */
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 110 4 2 2 0 010-4z"/></svg>') no-repeat center !important;
         background-size: contain !important;
-        font-size: 0 !important;
-        color: transparent !important;
+        /* 彻底移除文字 */
         text-indent: -9999px !important;
+        overflow: hidden !important;
     }
-    .m-cart-wrap a.ico-cart .cart-qty {
-        position: absolute !important;
-        top: -6px !important;
-        right: -8px !important;
-        background-color: #ff0000 !important;
-        color: #ffffff !important;
-        font-size: 10px !important;
-        font-weight: bold !important;
-        padding: 1px 4px !important;
-        border-radius: 10px !important;
-        text-indent: 0 !important;
-        line-height: 1.2 !important;
+
+    /* 确保移除所有旧的动态组件残留样式 */
+    .m-cart-wrap .flyout-cart,
+    .m-cart-wrap .mini-shopping-cart,
+    .m-cart-wrap .cart-label,
+    .m-cart-wrap .cart-qty {
+        display: none !important;
     }
 
     /* 手机端搜索框 */
@@ -9308,7 +9305,42 @@ a.skip:hover {
     .mobile-menu-inner .top-menu.notmobile {
         display: none !important;
     }
+
+
+
+    .home-page-category-grid .title,
+    .sub-category-grid .title {
+      font-size: 10px;
+      height: 30px !important;
+    
+    }
+
+    .item-box {
+      position: relative;
+      width: 43%;
+      float: left;
+      margin: 20px 10px 20px 10px;
+      text-align: left;
+    }
+
+    .item-box .picture {
+      z-index: 1;
+      background-color: #fff;
+      margin: 0 0;
+    }
+
+    
+    
 }
+
+
+.product-details-page .full-description img {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+
 
 /* ===== 等分菜单（保持980px布局） ===== */
 /*
