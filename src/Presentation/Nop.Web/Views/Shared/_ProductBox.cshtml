@@ -26,8 +26,9 @@
     var addtocomparelink = Url.RouteUrl("AddProductToCompare", new { productId = Model.Id });
 
     // 核心价格拦截判断：只要价格包含 0.00、或者等于 0、或者后台勾选了原生的 CallForPrice
-    var isZeroPrice = !string.IsNullOrEmpty(Model.ProductPrice.Price) && 
-                      (Model.ProductPrice.Price.Contains("0.00") || Model.ProductPrice.Price.Trim() == "0");
+   // 移除 $, 逗号等字符后转成 decimal 判断
+    var cleanPriceStr = System.Text.RegularExpressions.Regex.Replace(Model.ProductPrice.Price ?? "", "[^0-9.]", "");
+    var isZeroPrice = decimal.TryParse(cleanPriceStr, out var numericPrice) && numericPrice <= 0;
                       
 }
 <div class="product-item" data-productid="@Model.Id">

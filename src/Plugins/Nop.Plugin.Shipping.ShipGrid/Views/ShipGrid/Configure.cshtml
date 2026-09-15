@@ -1,0 +1,81 @@
+@model Nop.Plugin.Shipping.ShipGrid.Models.ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<form asp-controller="ShipGrid" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="ApiKey" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ApiKey" placeholder="ak_live_... 或 ak_test_..." />
+                        <span asp-validation-for="ApiKey"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperName" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperName" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperStreet1" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperStreet1" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperCity" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperCity" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperState" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperState" placeholder="如 CA" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperZip" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperZip" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="ShipperCountry" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="ShipperCountry" placeholder="US" /></div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="DefaultLabelFormat" /></div>
+                    <div class="col-md-9">
+                        <select asp-for="DefaultLabelFormat" asp-items="Model.LabelFormats" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="DefaultParcelLength" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="DefaultParcelLength" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="DefaultParcelWidth" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="DefaultParcelWidth" /></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="DefaultParcelHeight" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="DefaultParcelHeight" /></div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3"><nop-label asp-for="FailSilently" /></div>
+                    <div class="col-md-9"><nop-editor asp-for="FailSilently" /></div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

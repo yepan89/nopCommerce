@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <OutputType>Library</OutputType>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      这两个引用指向你本地 nopCommerce 4.70 源码解决方案里的项目。
+      把本插件文件夹整体复制到:
+        NopSource/src/Plugins/Nop.Plugin.Shipping.ShipGrid/
+      再用 Visual Studio 打开 nopCommerce.sln，右键解决方案 -> Add -> Existing Project
+      把本项目加入进去即可，路径会自动匹配。
+    -->
+    <ProjectReference Include="..\..\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
+    <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Remove="obj\**" />
+    <Content Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutDir>..\..\Presentation\Nop.Web\Plugins\Shipping.ShipGrid\</OutDir>
+  </PropertyGroup>
+
+</Project>

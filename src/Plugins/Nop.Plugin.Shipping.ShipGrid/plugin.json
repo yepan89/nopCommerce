@@ -1,0 +1,11 @@
+{
+  "Group": "Shipping",
+  "FriendlyName": "ShipGrid Shipping (atoship)",
+  "SystemName": "Shipping.ShipGrid",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "Your Company",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Shipping.ShipGrid.dll",
+  "Description": "通过 ShipGrid (atoship) API 获取实时物流报价、生成面单并追踪包裹（USPS / UPS / FedEx）"
+}
