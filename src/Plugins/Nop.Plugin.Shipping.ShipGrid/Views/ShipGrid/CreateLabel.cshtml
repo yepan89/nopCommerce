@@ -1,0 +1,57 @@
+@model Nop.Plugin.Shipping.ShipGrid.Models.ShipGridCreateLabelModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+<div class="cards-group">
+    <div class="card card-default">
+        <div class="card-body">
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger">@Model.ErrorMessage</div>
+            }
+
+            @if (Model.Rates.Any())
+            {
+                <form asp-controller="ShipGrid" asp-action="CreateLabel" method="post">
+                    <input type="hidden" name="orderId" value="@Model.OrderId" />
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>承运商</th>
+                                <th>服务</th>
+                                <th>价格</th>
+                                <th>预计天数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rate in Model.Rates)
+                            {
+                                <tr>
+                                    <td><input type="radio" name="rateId" value="@rate.Id" /></td>
+                                    <td>@rate.Carrier</td>
+                                    <td>@rate.Service</td>
+                                    <td>$@rate.Rate.ToString("0.00")</td>
+                                    <td>@(rate.DeliveryDays.HasValue ? $"{rate.DeliveryDays} 天" : "-")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-shipping-fast"></i> 购买并生成面单
+                    </button>
+                </form>
+            }
+            else if (string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-warning">没有查询到可用的报价选项</div>
+            }
+
+        </div>
+    </div>
+</div>

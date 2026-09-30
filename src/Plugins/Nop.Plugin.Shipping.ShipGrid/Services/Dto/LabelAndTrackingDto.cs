@@ -7,14 +7,26 @@ namespace Nop.Plugin.Shipping.ShipGrid.Services.Dto
         [JsonPropertyName("rate_id")]
         public string RateId { get; set; }
 
+        [JsonPropertyName("from_address")]
+        public AddressDto FromAddress { get; set; }
+
+        [JsonPropertyName("to_address")]
+        public AddressDto ToAddress { get; set; }
+
+        [JsonPropertyName("parcel")]
+        public ParcelDto Parcel { get; set; }
+
         [JsonPropertyName("label_format")]
-        public string LabelFormat { get; set; } = "PDF";
+        public string LabelFormat { get; set; } = "pdf";
     }
 
     public class LabelResponseDto
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
+
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
 
         [JsonPropertyName("tracking_number")]
         public string TrackingNumber { get; set; }

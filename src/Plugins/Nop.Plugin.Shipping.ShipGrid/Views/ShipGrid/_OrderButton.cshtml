@@ -1,0 +1,10 @@
+@model int
+
+@if (Model > 0)
+{
+    <a asp-controller="ShipGrid" asp-action="CreateLabel" asp-route-orderId="@Model"
+       class="btn btn-info">
+        <i class="fas fa-shipping-fast"></i>
+        生成 ShipGrid 面单
+    </a>
+}

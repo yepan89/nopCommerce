@@ -31,26 +31,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    @if (!closeConfigurationStepsCard)
-                    {
-                        <div class="row">
-                            <div class="col-md-12">
-                                @await Html.PartialAsync("_ConfigurationSteps")
-                            </div>
-                        </div>
-                    }
-
-                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardTop, additionalData = Model })
-                    @if (!Model.IsLoggedInAsVendor)
-                    {
-                        <div class="row">
-                            <div class="col-md-12">
-                                @await Component.InvokeAsync(typeof(NopCommerceNewsViewComponent))
-                            </div>
-                        </div>
-                    }
-
-                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardNewsAfter, additionalData = Model })
                     @if (!Model.IsLoggedInAsVendor && canManageOrders && canManageCustomers && canManageProducts && canManageReturnRequests)
                     {
                         <div class="row">
@@ -60,6 +40,18 @@
                         </div>
                     }
                     @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardCommonstatisticsAfter, additionalData = Model })
+                    
+                   
+                    
+                    @if (!Model.IsLoggedInAsVendor && canManageOrders)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                @await Html.PartialAsync("_OrderAverageReport")
+                            </div>
+                        </div>
+                    }
+                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardOrderreportsAfter, additionalData = Model })
                     @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageCustomers))
                     {
                         <div class="row">
@@ -78,33 +70,17 @@
                         </div>
                     }
                     @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardCustomerorderchartsAfter, additionalData = Model })
-                    @if (!Model.IsLoggedInAsVendor && canManageOrders)
-                    {
-                        <div class="row">
-                            <div class="col-md-8">
-                                @await Html.PartialAsync("_OrderAverageReport")
-                            </div>
-                            <div class="col-md-4">
-                                @await Html.PartialAsync("_OrderIncompleteReport")
-                            </div>
-                        </div>
-                    }
-                    @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardOrderreportsAfter, additionalData = Model })
+                    
                     @if (!Model.IsLoggedInAsVendor && (canManageOrders || canManageProducts))
                     {
                         <div class="row">
                             @if (canManageOrders)
                             {
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     @await Html.PartialAsync("_LatestOrders")
                                 </div>
                             }
-                            <div class="col-md-4">
-                                @if (canManageProducts)
-                                {
-                                    @await Html.PartialAsync("_PopularSearchTermsReport")
-                                }
-                            </div>
+                           
                         </div>
                     }
                     @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardLatestordersSearchtermsAfter, additionalData = Model })
@@ -120,6 +96,7 @@
                         </div>
                     }
                     @await Component.InvokeAsync(typeof(AdminWidgetViewComponent), new { widgetZone = AdminWidgetZones.DashboardBottom, additionalData = Model })
+                   
                 </div>
             </div>
         </div>

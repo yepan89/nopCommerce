@@ -9,6 +9,8 @@ using Nop.Services.Localization;
 using Nop.Services.Plugins;
 using Nop.Services.Shipping;
 using Nop.Services.Shipping.Tracking;
+using Nop.Services.Cms;
+using Nop.Web.Framework.Infrastructure;
 using ILogger = Nop.Services.Logging.ILogger;
 
 namespace Nop.Plugin.Shipping.ShipGrid.ShippingRateComputationMethod
@@ -16,7 +18,7 @@ namespace Nop.Plugin.Shipping.ShipGrid.ShippingRateComputationMethod
     /// <summary>
     /// ShipGrid (atoship) 运费计算插件主类
     /// </summary>
-    public class ShipGridProcessor : BasePlugin, IShippingRateComputationMethod
+    public class ShipGridProcessor : BasePlugin, IShippingRateComputationMethod, IWidgetPlugin
     {
         private readonly ShipGridHttpClient _httpClient;
         private readonly ShipGridSettings _settings;
@@ -214,5 +216,12 @@ namespace Nop.Plugin.Shipping.ShipGrid.ShippingRateComputationMethod
             await _localizationService.DeleteLocaleResourcesAsync("Plugins.Shipping.ShipGrid");
             await base.UninstallAsync();
         }
+        public bool HideInWidgetList => true;
+
+    public Task<IList<string>> GetWidgetZonesAsync()
+        => Task.FromResult<IList<string>>(new List<string> { AdminWidgetZones.OrderDetailsButtons  });
+
+    public Type GetWidgetViewComponent(string widgetZone)
+        => typeof(Components.ShipGridOrderButtonViewComponent);
     }
 }

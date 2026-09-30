@@ -54,23 +54,28 @@ namespace Nop.Plugin.Shipping.ShipGrid.Services
         }
 
         /// <summary>
-        /// 调用 POST /v1/labels 用选中的 rate_id 购买面单
-        /// 注意: rate_id 有时效性(通常几十分钟)，请在用户下单后尽快调用
+        /// 第一步：创建面单草稿(不扣费，不生成真实面单，status 为 draft)
         /// </summary>
-        public async Task<LabelResponseDto> CreateLabelAsync(string rateId, string labelFormat = null)
+        public async Task<LabelResponseDto> CreateDraftLabelAsync(LabelRequestDto request)
         {
             EnsureApiKeyConfigured();
 
-            var payload = new LabelRequestDto
-            {
-                RateId = rateId,
-                LabelFormat = string.IsNullOrWhiteSpace(labelFormat)
-                    ? (_settings.DefaultLabelFormat ?? "PDF")
-                    : labelFormat
-            };
+            using var response = await _httpClient.PostAsJsonAsync("labels", request, _jsonOptions);
+            await EnsureSuccessAsync(response, "创建面单草稿失败");
 
-            using var response = await _httpClient.PostAsJsonAsync("labels", payload, _jsonOptions);
-            await EnsureSuccessAsync(response, "创建面单失败");
+            return await response.Content.ReadFromJsonAsync<LabelResponseDto>(_jsonOptions);
+        }
+
+        /// <summary>
+        /// 第二步：真正购买面单(扣费，返回运单号和面单文件链接)
+        /// 注意: rate_id 有时效性(通常几十分钟)，请在用户下单后尽快调用整个流程
+        /// </summary>
+        public async Task<LabelResponseDto> PurchaseLabelAsync(string labelId)
+        {
+            EnsureApiKeyConfigured();
+
+            using var response = await _httpClient.PostAsync($"labels/{Uri.EscapeDataString(labelId)}/purchase", null);
+            await EnsureSuccessAsync(response, "购买面单失败");
 
             return await response.Content.ReadFromJsonAsync<LabelResponseDto>(_jsonOptions);
         }
